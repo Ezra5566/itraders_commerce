@@ -37,17 +37,17 @@ import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import { getFeatureImages } from "@/store/common-slice";
 
 const categoriesWithIcon = [
-  { id: "men", label: "phones", icon: Smartphone },
-  { id: "women", label: "Laptops/Mac", icon: Laptop },
-  { id: "kids", label: "Ipads/Tablets", icon: TabletSmartphone },
+  { id: "phones", label: "Phones", icon: Smartphone },
+  { id: "mac", label: "Laptops/Mac", icon: Laptop },
+  { id: "Ipads", label: "Ipads/Tablets", icon: TabletSmartphone },
   { id: "accessories", label: "Accessories", icon: WatchIcon },
-  { id: "footwear", label: "Cases", icon: PcCase },
+  { id: "Cases", label: "Cases", icon: PcCase },
 ];
 
 const brandsWithIcon = [
-  { id: "nike", label: "Apple", icon: Apple },
-  { id: "adidas", label: "Samsung", icon: WashingMachine },
-  { id: "puma", label: "Google", icon: ShoppingBasket },
+  { id: "apple", label: "Apple", icon: Apple },
+  { id: "samsung", label: "Samsung", icon: WashingMachine },
+  { id: "google", label: "Google", icon: ShoppingBasket },
   { id: "levi", label: "others", icon: Airplay },
   { id: "zara", label: "Zara", icon: Images },
   { id: "h&m", label: "H&M", icon: Heater },

@@ -17,6 +17,10 @@ module.exports = {
       },
     },
     extend: {
+        fontFamily: {
+          audiowide: ["Audiowide", "cursive"], // ✅ Add the font family here
+        },
+        
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -73,5 +77,4 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
 }

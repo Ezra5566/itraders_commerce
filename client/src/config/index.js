@@ -58,11 +58,11 @@ export const addProductFormElements = [
     name: "category",
     componentType: "select",
     options: [
-      { id: "men", label: "phones" },
-      { id: "women", label: "Mac" },
-      { id: "kids", label: "Ipads" },
+      { id: "phones", label: "phones" },
+      { id: "mac", label: "Mac" },
+      { id: "ipads", label: "Ipads" },
       { id: "accessories", label: "Accessories" },
-      { id: "footwear", label: "Cases" },
+      { id: "cases", label: "Cases" },
     ],
   },
   {
@@ -70,10 +70,10 @@ export const addProductFormElements = [
     name: "brand",
     componentType: "select",
     options: [
-      { id: "nike", label: "Apple" },
-      { id: "adidas", label: "Samsung" },
-      { id: "puma", label: "Google" },
-      { id: "levi", label: "others" },
+      { id: "apple", label: "Apple" },
+      { id: "samsung", label: "Samsung" },
+      { id: "google", label: "Google" },
+      { id: "others", label: "others" },
       { id: "zara", label: "Zara" },
       { id: "h&m", label: "H&M" },
     ],
@@ -113,22 +113,22 @@ export const shoppingViewHeaderMenuItems = [
     path: "/shop/listing",
   },
   {
-    id: "men",
+    id: "phones",
     label: "Phones",
     path: "/shop/listing",
   },
   {
-    id: "women",
+    id: "mac",
     label: "Mac",
     path: "/shop/listing",
   },
   {
-    id: "kids",
+    id: "ipads",
     label: "Ipad",
     path: "/shop/listing",
   },
   {
-    id: "footwear",
+    id: "cases",
     label: "Cases",
     path: "/shop/listing",
   },
@@ -145,17 +145,17 @@ export const shoppingViewHeaderMenuItems = [
 ];
 
 export const categoryOptionsMap = {
-  men: "Men",
-  women: "Women",
-  kids: "Kids",
+  phones: "Phones",
+  mac: "Mac",
+  ipads: "Ipads",
   accessories: "Accessories",
-  footwear: "Footwear",
+  cases: "cases",
 };
 
 export const brandOptionsMap = {
-  nike: "Nike",
-  adidas: "Adidas",
-  puma: "Puma",
+  apple: "Apple",
+  samsung: "Samsung",
+  google: "Google",
   levi: "Levi",
   zara: "Zara",
   "h&m": "H&M",
@@ -163,17 +163,17 @@ export const brandOptionsMap = {
 
 export const filterOptions = {
   category: [
-    { id: "men", label: "Men" },
-    { id: "women", label: "Women" },
-    { id: "kids", label: "Kids" },
+    { id: "phones", label: "Phones" },
+    { id: "mac", label: "Mac" },
+    { id: "ipads", label: "Ipads" },
     { id: "accessories", label: "Accessories" },
-    { id: "footwear", label: "Footwear" },
+    { id: "cases", label: "Cases" },
   ],
   brand: [
-    { id: "nike", label: "Nike" },
-    { id: "adidas", label: "Adidas" },
-    { id: "puma", label: "Puma" },
-    { id: "levi", label: "Levi's" },
+    { id: "apple", label: "Apple" },
+    { id: "samsung", label: "Samsung" },
+    { id: "google", label: "Google" },
+    { id: "others", label: "others" },
     { id: "zara", label: "Zara" },
     { id: "h&m", label: "H&M" },
   ],
