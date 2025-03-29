@@ -14,6 +14,9 @@ import {
   ShoppingBasket,
   WashingMachine,
   WatchIcon,
+  ArrowRight,
+  Star,
+  TrendingUp,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
@@ -30,6 +33,7 @@ import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import LoginPromptDialog from "@/components/shopping-view/login-prompt-dialog";
 import { getFeatureImages } from "@/store/common-slice";
 import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
 
 const categoriesWithIcon = [
   { id: "phones", label: "Phones", icon: Smartphone },
@@ -70,6 +74,19 @@ const itemVariants = {
     },
   },
 };
+
+const features = [
+  {
+    icon: Star,
+    title: "Premium Quality",
+    description: "Top-tier products from trusted brands",
+  },
+  {
+    icon: TrendingUp,
+    title: "Latest Trends",
+    description: "Stay ahead with our curated selection",
+  },
+];
 
 function ShoppingHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -157,25 +174,69 @@ function ShoppingHome() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative w-full h-[70vh] overflow-hidden"
+        className="relative w-full h-[80vh] overflow-hidden"
       >
         {featureImageList && featureImageList.length > 0
           ? featureImageList.map((slide, index) => (
-              <motion.img
+              <motion.div
                 key={index}
-                src={slide?.image}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: index === currentSlide ? 1 : 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute top-0 left-0 w-full h-full object-cover"
-              />
+                className="absolute inset-0"
+              >
+                <img
+                  src={slide?.image}
+                  className="w-full h-full object-cover"
+                  alt={`Slide ${index + 1}`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="text-center text-white px-4"
+                  >
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6">
+                      Discover Amazing Products
+                    </h1>
+                    <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+                      Shop the latest trends with our curated collection of premium products
+                    </p>
+                    <Button
+                      size="lg"
+                      className="bg-white text-black hover:bg-white/90"
+                      onClick={() => navigate("/listing")}
+                    >
+                      Shop Now <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </motion.div>
+                </div>
+              </motion.div>
             ))
           : null}
-        <div className="absolute inset-0 bg-black/30" />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2"
+        >
+          {featureImageList?.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide ? "bg-white w-6" : "bg-white/50"
+              }`}
+            />
+          ))}
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="absolute top-1/2 left-4 transform -translate-y-1/2"
         >
           <Button
             variant="outline"
@@ -187,10 +248,17 @@ function ShoppingHome() {
                   featureImageList.length
               )
             }
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/90 hover:bg-white transition-colors"
+            className="bg-white/90 hover:bg-white transition-colors"
           >
-            <ChevronLeftIcon className="w-4 h-4" />
+            <ChevronLeftIcon className="w-6 h-6" />
           </Button>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="absolute top-1/2 right-4 transform -translate-y-1/2"
+        >
           <Button
             variant="outline"
             size="icon"
@@ -199,12 +267,39 @@ function ShoppingHome() {
                 (prevSlide) => (prevSlide + 1) % featureImageList.length
               )
             }
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/90 hover:bg-white transition-colors"
+            className="bg-white/90 hover:bg-white transition-colors"
           >
-            <ChevronRightIcon className="w-4 h-4" />
+            <ChevronRightIcon className="w-6 h-6" />
           </Button>
         </motion.div>
       </motion.div>
+
+      {/* Features Section */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
+        className="py-12 bg-white border-b"
+      >
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="flex items-center gap-4 p-6 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+              >
+                <feature.icon className="w-8 h-8 text-primary" />
+                <div>
+                  <h3 className="font-semibold text-lg">{feature.title}</h3>
+                  <p className="text-gray-600">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
 
       {/* Categories Section */}
       <motion.section
@@ -215,12 +310,14 @@ function ShoppingHome() {
         className="py-16 bg-white"
       >
         <div className="container mx-auto px-4">
-          <motion.h2
+          <motion.div
             variants={itemVariants}
-            className="text-4xl font-bold text-center mb-12"
+            className="text-center mb-12"
           >
-            Shop by Category
-          </motion.h2>
+            <Badge variant="secondary" className="mb-4">Categories</Badge>
+            <h2 className="text-4xl font-bold">Shop by Category</h2>
+            <p className="text-gray-600 mt-2">Browse our curated collection of products</p>
+          </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {categoriesWithIcon.map((categoryItem) => (
               <motion.div
@@ -233,11 +330,13 @@ function ShoppingHome() {
                   onClick={() =>
                     handleNavigateToListingPage(categoryItem, "category")
                   }
-                  className="cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary"
+                  className="cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary group"
                 >
                   <CardContent className="flex flex-col items-center justify-center p-8">
-                    <categoryItem.icon className="w-16 h-16 mb-4 text-primary" />
-                    <span className="font-semibold text-lg">{categoryItem.label}</span>
+                    <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                      <categoryItem.icon className="w-16 h-16 text-primary" />
+                    </div>
+                    <span className="font-semibold text-lg mt-4">{categoryItem.label}</span>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -255,12 +354,14 @@ function ShoppingHome() {
         className="py-16 bg-gray-50"
       >
         <div className="container mx-auto px-4">
-          <motion.h2
+          <motion.div
             variants={itemVariants}
-            className="text-4xl font-bold text-center mb-12"
+            className="text-center mb-12"
           >
-            Shop by Brand
-          </motion.h2>
+            <Badge variant="secondary" className="mb-4">Brands</Badge>
+            <h2 className="text-4xl font-bold">Shop by Brand</h2>
+            <p className="text-gray-600 mt-2">Explore products from your favorite brands</p>
+          </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {brandsWithIcon.map((brandItem) => (
               <motion.div
@@ -271,11 +372,13 @@ function ShoppingHome() {
               >
                 <Card
                   onClick={() => handleNavigateToListingPage(brandItem, "brand")}
-                  className="cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary"
+                  className="cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary group"
                 >
                   <CardContent className="flex flex-col items-center justify-center p-6">
-                    <brandItem.icon className="w-12 h-12 mb-4 text-primary" />
-                    <span className="font-semibold text-lg">{brandItem.label}</span>
+                    <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                      <brandItem.icon className="w-12 h-12 text-primary" />
+                    </div>
+                    <span className="font-semibold text-lg mt-4">{brandItem.label}</span>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -293,12 +396,14 @@ function ShoppingHome() {
         className="py-16 bg-white"
       >
         <div className="container mx-auto px-4">
-          <motion.h2
+          <motion.div
             variants={itemVariants}
-            className="text-4xl font-bold text-center mb-12"
+            className="text-center mb-12"
           >
-            Featured Products
-          </motion.h2>
+            <Badge variant="secondary" className="mb-4">Featured</Badge>
+            <h2 className="text-4xl font-bold">Featured Products</h2>
+            <p className="text-gray-600 mt-2">Discover our handpicked selection of premium products</p>
+          </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {productList && productList.length > 0
               ? productList.map((productItem) => (
