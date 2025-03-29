@@ -130,11 +130,11 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 productDetails?.salePrice > 0 ? "line-through" : ""
               }`}
             >
-              ${productDetails?.price}
+              KSH {productDetails?.price.toLocaleString()}
             </p>
             {productDetails?.salePrice > 0 ? (
               <p className="text-2xl font-bold text-muted-foreground">
-                ${productDetails?.salePrice}
+                KSH {productDetails?.salePrice.toLocaleString()}
               </p>
             ) : null}
           </div>

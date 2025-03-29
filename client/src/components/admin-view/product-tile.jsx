@@ -26,10 +26,10 @@ function AdminProductTile({
                 product?.salePrice > 0 ? "line-through" : ""
               } text-lg font-semibold text-primary`}
             >
-              ${product?.price}
+              KSH {product?.price.toLocaleString()}
             </span>
             {product?.salePrice > 0 ? (
-              <span className="text-lg font-bold">${product?.salePrice}</span>
+              <span className="text-lg font-bold">KSH {product?.salePrice.toLocaleString()}</span>
             ) : null}
           </div>
         </CardContent>

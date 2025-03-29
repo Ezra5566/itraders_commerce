@@ -76,7 +76,7 @@ function ShoppingOrders() {
                         {orderItem?.orderStatus}
                       </Badge>
                     </TableCell>
-                    <TableCell>${orderItem?.totalAmount}</TableCell>
+                    <TableCell>KSH {orderItem?.totalAmount.toLocaleString()}</TableCell>
                     <TableCell>
                       <Dialog
                         open={openDetailsDialog}
