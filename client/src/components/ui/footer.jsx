@@ -35,17 +35,17 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/listing" className="text-gray-400 hover:text-white transition-colors">
                   Products
                 </Link>
               </li>
               <li>
-                <Link to="/shop/about" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/shop/contact" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/contact" className="text-gray-400 hover:text-white transition-colors">
                   Contact
                 </Link>
               </li>
