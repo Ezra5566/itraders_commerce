@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import AuthLayout from "./components/auth/layout";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
@@ -24,12 +25,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
 import SearchProducts from "./pages/shopping-view/search";
+import PageTransition from "./components/common/page-transition";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(checkAuth());
@@ -41,62 +44,183 @@ function App() {
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<ShoppingLayout />}>
-          <Route index element={<ShoppingHome />} />
-          <Route path="listing" element={<ShoppingListing />} />
-          <Route path="contact" element={<ContactPage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="search" element={<SearchProducts />} />
-        </Route>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          {/* Public Routes */}
+          <Route path="/" element={<ShoppingLayout />}>
+            <Route
+              index
+              element={
+                <PageTransition>
+                  <ShoppingHome />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="listing"
+              element={
+                <PageTransition>
+                  <ShoppingListing />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="contact"
+              element={
+                <PageTransition>
+                  <ContactPage />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="about"
+              element={
+                <PageTransition>
+                  <AboutPage />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="search"
+              element={
+                <PageTransition>
+                  <SearchProducts />
+                </PageTransition>
+              }
+            />
+          </Route>
 
-        {/* Protected Routes */}
-        <Route
-          path="/auth"
-          element={
-            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-              <AuthLayout />
-            </CheckAuth>
-          }
-        >
-          <Route path="login" element={<AuthLogin />} />
-          <Route path="register" element={<AuthRegister />} />
-        </Route>
+          {/* Protected Routes */}
+          <Route
+            path="/auth"
+            element={
+              <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+                <AuthLayout />
+              </CheckAuth>
+            }
+          >
+            <Route
+              path="login"
+              element={
+                <PageTransition>
+                  <AuthLogin />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <PageTransition>
+                  <AuthRegister />
+                </PageTransition>
+              }
+            />
+          </Route>
 
-        {/* Admin Routes */}
-        <Route
-          path="/admin"
-          element={
-            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-              <AdminLayout />
-            </CheckAuth>
-          }
-        >
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="products" element={<AdminProducts />} />
-          <Route path="orders" element={<AdminOrders />} />
-          <Route path="features" element={<AdminFeatures />} />
-        </Route>
+          {/* Admin Routes */}
+          <Route
+            path="/admin"
+            element={
+              <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+                <AdminLayout />
+              </CheckAuth>
+            }
+          >
+            <Route
+              path="dashboard"
+              element={
+                <PageTransition>
+                  <AdminDashboard />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="products"
+              element={
+                <PageTransition>
+                  <AdminProducts />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="orders"
+              element={
+                <PageTransition>
+                  <AdminOrders />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="features"
+              element={
+                <PageTransition>
+                  <AdminFeatures />
+                </PageTransition>
+              }
+            />
+          </Route>
 
-        {/* Protected Shopping Routes */}
-        <Route
-          path="/shop"
-          element={
-            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-              <ShoppingLayout />
-            </CheckAuth>
-          }
-        >
-          <Route path="checkout" element={<ShoppingCheckout />} />
-          <Route path="account" element={<ShoppingAccount />} />
-          <Route path="paypal-return" element={<PaypalReturnPage />} />
-          <Route path="payment-success" element={<PaymentSuccessPage />} />
-        </Route>
+          {/* Protected Shopping Routes */}
+          <Route
+            path="/shop"
+            element={
+              <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+                <ShoppingLayout />
+              </CheckAuth>
+            }
+          >
+            <Route
+              path="checkout"
+              element={
+                <PageTransition>
+                  <ShoppingCheckout />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="account"
+              element={
+                <PageTransition>
+                  <ShoppingAccount />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="paypal-return"
+              element={
+                <PageTransition>
+                  <PaypalReturnPage />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="payment-success"
+              element={
+                <PageTransition>
+                  <PaymentSuccessPage />
+                </PageTransition>
+              }
+            />
+          </Route>
 
-        <Route path="/unauth-page" element={<UnauthPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route
+            path="/unauth-page"
+            element={
+              <PageTransition>
+                <UnauthPage />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <PageTransition>
+                <NotFound />
+              </PageTransition>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
     </div>
   );
 }
