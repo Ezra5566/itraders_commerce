@@ -217,6 +217,18 @@ function ShoppingHome() {
                     transition={{ delay: 0.5 }}
                     className="text-center text-white px-4"
                   >
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.3 }}
+                      className="mb-8"
+                    >
+                      <img 
+                        src="/logo.svg" 
+                        alt="iTraders Logo" 
+                        className="h-16 md:h-24 w-auto mx-auto"
+                      />
+                    </motion.div>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-yellow-200 to-white">
                       Discover Amazing Products
                     </h1>

@@ -144,10 +144,13 @@ function HeaderRightContent() {
 function ShoppingHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
-      <div className="flex h-16 items-center justify-between px-4 md:px-6">
+      <div className="flex h-20 items-center justify-between px-4 md:px-6">
         <Link to="/" className="flex items-center gap-2">
-          <HousePlug className="h-6 w-6" />
-          <span className="font-bold">Itraders Store</span>
+          <img 
+            src="/logo.svg" 
+            alt="iTraders Logo" 
+            className="h-12 w-auto hover:scale-105 transition-transform duration-200"
+          />
         </Link>
         <Sheet>
           <SheetTrigger asChild>
