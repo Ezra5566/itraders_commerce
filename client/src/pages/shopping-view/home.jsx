@@ -80,12 +80,31 @@ const features = [
     icon: Star,
     title: "Premium Quality",
     description: "Top-tier products from trusted brands",
+    color: "from-purple-600 to-purple-800",
   },
   {
     icon: TrendingUp,
     title: "Latest Trends",
     description: "Stay ahead with our curated selection",
+    color: "from-yellow-500 to-yellow-600",
   },
+];
+
+const categoryColors = [
+  "from-purple-600 to-purple-800",
+  "from-yellow-500 to-yellow-600",
+  "from-purple-500 to-purple-700",
+  "from-yellow-400 to-yellow-500",
+  "from-purple-400 to-purple-600",
+];
+
+const brandColors = [
+  "from-purple-600 to-purple-800",
+  "from-yellow-500 to-yellow-600",
+  "from-purple-500 to-purple-700",
+  "from-yellow-400 to-yellow-500",
+  "from-purple-400 to-purple-600",
+  "from-yellow-300 to-yellow-400",
 ];
 
 function ShoppingHome() {
@@ -190,7 +209,7 @@ function ShoppingHome() {
                   className="w-full h-full object-cover"
                   alt={`Slide ${index + 1}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -198,15 +217,15 @@ function ShoppingHome() {
                     transition={{ delay: 0.5 }}
                     className="text-center text-white px-4"
                   >
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6">
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-yellow-200 to-white">
                       Discover Amazing Products
                     </h1>
-                    <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+                    <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-gray-100">
                       Shop the latest trends with our curated collection of premium products
                     </p>
                     <Button
                       size="lg"
-                      className="bg-white text-black hover:bg-white/90"
+                      className="bg-gradient-to-r from-purple-600 to-purple-800 text-white hover:from-purple-700 hover:to-purple-900 shadow-lg hover:shadow-xl transition-all duration-300"
                       onClick={() => navigate("/listing")}
                     >
                       Shop Now <ArrowRight className="ml-2 h-5 w-5" />
@@ -280,7 +299,7 @@ function ShoppingHome() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={containerVariants}
-        className="py-12 bg-white border-b"
+        className="py-12 bg-gradient-to-b from-white to-gray-50"
       >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -288,12 +307,17 @@ function ShoppingHome() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="flex items-center gap-4 p-6 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+                className="group relative overflow-hidden rounded-xl bg-gradient-to-r p-[2px] hover:shadow-xl transition-all duration-300"
               >
-                <feature.icon className="w-8 h-8 text-primary" />
-                <div>
-                  <h3 className="font-semibold text-lg">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-yellow-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative flex items-center gap-4 p-6 rounded-xl bg-white">
+                  <div className={`p-3 rounded-full bg-gradient-to-r ${feature.color} text-white`}>
+                    <feature.icon className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">{feature.title}</h3>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -314,12 +338,12 @@ function ShoppingHome() {
             variants={itemVariants}
             className="text-center mb-12"
           >
-            <Badge variant="secondary" className="mb-4">Categories</Badge>
-            <h2 className="text-4xl font-bold">Shop by Category</h2>
+            <Badge variant="secondary" className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">Categories</Badge>
+            <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-800">Shop by Category</h2>
             <p className="text-gray-600 mt-2">Browse our curated collection of products</p>
           </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {categoriesWithIcon.map((categoryItem) => (
+            {categoriesWithIcon.map((categoryItem, index) => (
               <motion.div
                 key={categoryItem.id}
                 variants={itemVariants}
@@ -330,11 +354,12 @@ function ShoppingHome() {
                   onClick={() =>
                     handleNavigateToListingPage(categoryItem, "category")
                   }
-                  className="cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary group"
+                  className="cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-purple-600 group overflow-hidden"
                 >
-                  <CardContent className="flex flex-col items-center justify-center p-8">
-                    <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <categoryItem.icon className="w-16 h-16 text-primary" />
+                  <div className={`absolute inset-0 bg-gradient-to-r ${categoryColors[index]} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                  <CardContent className="relative flex flex-col items-center justify-center p-8">
+                    <div className={`p-4 rounded-full bg-gradient-to-r ${categoryColors[index]} text-white group-hover:scale-110 transition-transform duration-300`}>
+                      <categoryItem.icon className="w-16 h-16" />
                     </div>
                     <span className="font-semibold text-lg mt-4">{categoryItem.label}</span>
                   </CardContent>
@@ -351,19 +376,19 @@ function ShoppingHome() {
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
-        className="py-16 bg-gray-50"
+        className="py-16 bg-gradient-to-b from-gray-50 to-white"
       >
         <div className="container mx-auto px-4">
           <motion.div
             variants={itemVariants}
             className="text-center mb-12"
           >
-            <Badge variant="secondary" className="mb-4">Brands</Badge>
-            <h2 className="text-4xl font-bold">Shop by Brand</h2>
+            <Badge variant="secondary" className="mb-4 bg-yellow-100 text-yellow-800 hover:bg-yellow-200">Brands</Badge>
+            <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-yellow-600">Shop by Brand</h2>
             <p className="text-gray-600 mt-2">Explore products from your favorite brands</p>
           </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {brandsWithIcon.map((brandItem) => (
+            {brandsWithIcon.map((brandItem, index) => (
               <motion.div
                 key={brandItem.id}
                 variants={itemVariants}
@@ -372,11 +397,12 @@ function ShoppingHome() {
               >
                 <Card
                   onClick={() => handleNavigateToListingPage(brandItem, "brand")}
-                  className="cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary group"
+                  className="cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-yellow-500 group overflow-hidden"
                 >
-                  <CardContent className="flex flex-col items-center justify-center p-6">
-                    <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <brandItem.icon className="w-12 h-12 text-primary" />
+                  <div className={`absolute inset-0 bg-gradient-to-r ${brandColors[index]} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                  <CardContent className="relative flex flex-col items-center justify-center p-6">
+                    <div className={`p-3 rounded-full bg-gradient-to-r ${brandColors[index]} text-white group-hover:scale-110 transition-transform duration-300`}>
+                      <brandItem.icon className="w-12 h-12" />
                     </div>
                     <span className="font-semibold text-lg mt-4">{brandItem.label}</span>
                   </CardContent>
@@ -400,8 +426,8 @@ function ShoppingHome() {
             variants={itemVariants}
             className="text-center mb-12"
           >
-            <Badge variant="secondary" className="mb-4">Featured</Badge>
-            <h2 className="text-4xl font-bold">Featured Products</h2>
+            <Badge variant="secondary" className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">Featured</Badge>
+            <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-800">Featured Products</h2>
             <p className="text-gray-600 mt-2">Discover our handpicked selection of premium products</p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
